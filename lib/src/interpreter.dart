@@ -166,9 +166,10 @@ class Interpreter {
   }
 
   /// Run for single input and output
-  void run(Object input, Object output) {
+  void run(Object input, Object output, Object score) {
     var map = <int, Object>{};
     map[0] = output;
+    map[1] = score;
     runForMultipleInputs([input], map);
   }
 
@@ -179,7 +180,7 @@ class Interpreter {
     }
     runInference(inputs);
     var outputTensors = getOutputTensors();
-    for (var i = 0; i < outputTensors.length; i++) {
+    for (var i = 0; i < outputTensors.length && i < outputs.length; i++) {
       outputTensors[i].copyTo(outputs[i]!);
     }
   }
